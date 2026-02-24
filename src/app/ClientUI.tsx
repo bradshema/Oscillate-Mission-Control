@@ -37,6 +37,7 @@ export function ForegroundHUD() {
 
     // UI Interaction States
     const [activeAgent, setActiveAgent] = useState<string | null>("alpha");
+    const [hasStarted, setHasStarted] = useState<boolean>(false);
 
     useEffect(() => {
         // Clock
@@ -85,6 +86,25 @@ export function ForegroundHUD() {
     const vramTotal = hardware ? hardware.gpu.vramTotalGB : "8.0";
     const gpuName = hardware ? hardware.gpu.name : "RTX GPU";
 
+    if (!hasStarted) {
+        return (
+            <>
+                {/* Vignette Edge Darkening for depth */}
+                <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,_transparent_40%,_#000000_100%)] z-20"></div>
+
+                <div className="absolute inset-0 z-30 pointer-events-none p-6 md:p-10 flex flex-col justify-end items-center pb-24">
+                    <button
+                        onClick={() => setHasStarted(true)}
+                        className="pointer-events-auto group relative px-16 py-5 bg-black/40 backdrop-blur-3xl border border-white/10 rounded-full text-white tracking-[0.3em] font-sans text-sm uppercase font-medium hover:bg-black/60 hover:border-oscillate-emerald/50 transition-all duration-500 shadow-[0_0_40px_rgba(0,0,0,0.8)] overflow-hidden"
+                    >
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-oscillate-emerald/10 to-transparent -translate-x-[150%] group-hover:animate-[shimmer_2s_infinite]"></div>
+                        Start
+                    </button>
+                </div>
+            </>
+        );
+    }
+
     return (
         <>
             {/* Vignette Edge Darkening for depth */}
@@ -107,8 +127,8 @@ export function ForegroundHUD() {
                     <div className="flex items-center gap-6 bg-black/40 backdrop-blur-2xl border border-white/5 rounded-full px-6 py-3 shadow-[0_0_40px_rgba(0,0,0,0.5)]">
                         <div className="flex items-center gap-2">
                             <span className="relative flex h-2 w-2">
-                                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${wsStatus === 'ONLINE' ? 'bg-oscillate-emerald' : 'bg-oscillate-error'}`}></span>
-                                <span className={`relative inline-flex rounded-full h-2 w-2 shadow-[0_0_8px_var(--color-oscillate-emerald-intense)] ${wsStatus === 'ONLINE' ? 'bg-oscillate-emerald' : 'bg-oscillate-error'}`}></span>
+                                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${wsStatus === 'ONLINE' ? 'bg-oscillate-emerald' : 'bg-oscillate-warning'}`}></span>
+                                <span className={`relative inline-flex rounded-full h-2 w-2 shadow-[0_0_8px_var(--color-oscillate-emerald-intense)] ${wsStatus === 'ONLINE' ? 'bg-oscillate-emerald' : 'bg-oscillate-warning'}`}></span>
                             </span>
                             <span className="text-[10px] uppercase font-mono tracking-widest text-[#a1a1aa] mr-4">{wsStatus}</span>
                         </div>
@@ -148,11 +168,11 @@ export function ForegroundHUD() {
                                 {/* VRAM */}
                                 <div className="flex flex-col gap-2">
                                     <div className="flex justify-between items-center text-[10px] font-mono tracking-widest">
-                                        <span className="text-white/60 flex items-center gap-1"><Flame className="w-3 h-3 text-oscillate-error/60" /> {gpuName}</span>
-                                        <span className="text-oscillate-error">{vramLoad}% / {vramTotal} GB</span>
+                                        <span className="text-white/60 flex items-center gap-1"><Flame className="w-3 h-3 text-oscillate-lazulite/60" /> {gpuName}</span>
+                                        <span className="text-oscillate-lazulite">{vramLoad}% / {vramTotal} GB</span>
                                     </div>
                                     <div className="h-1 bg-white/5 rounded-full overflow-hidden w-full relative">
-                                        <div className="absolute top-0 left-0 h-full bg-oscillate-error shadow-[0_0_10px_var(--color-oscillate-error)] rounded-full transition-all duration-1000 ease-out" style={{ width: `${vramLoad}%` }}></div>
+                                        <div className="absolute top-0 left-0 h-full bg-oscillate-lazulite shadow-[0_0_10px_var(--color-oscillate-lazulite-glow)] rounded-full transition-all duration-1000 ease-out" style={{ width: `${vramLoad}%` }}></div>
                                     </div>
                                 </div>
                                 {/* RAM */}
@@ -180,7 +200,7 @@ export function ForegroundHUD() {
                                 <div><span className="text-oscillate-emerald">@claw-alpha:</span> Pipeline BRADIAN received. Resolving LLM dependencies.</div>
                                 <div className="text-oscillate-warning"><span className="text-white/40">&gt; Sys:</span> Memory allocation spike +12%.</div>
                                 <div><span className="text-oscillate-emerald">@claw-beta:</span> Awaiting downstream schemas...</div>
-                                <div className="text-oscillate-error"><span className="text-white/40">&gt; Sys:</span> Task Scheduler anomaly flagged by Security Node.</div>
+                                <div className="text-oscillate-lazulite"><span className="text-white/40">&gt; Sys:</span> Task Scheduler anomaly flagged by Security Node.</div>
                                 <div className="flex items-center gap-1 text-oscillate-emerald mt-auto animate-pulse">
                                     <Terminal className="w-3 h-3" /> <div className="w-2 h-3 bg-oscillate-emerald opacity-70"></div>
                                 </div>
@@ -273,23 +293,23 @@ export function ForegroundHUD() {
                         {/* SECURITY/ANOMALY (Gemma) */}
                         <div
                             onClick={() => setActiveAgent(activeAgent === "gamma" ? null : "gamma")}
-                            className={`w-10/12 bg-black/40 backdrop-blur-3xl cursor-pointer border-l-[3px] border-oscillate-error/80 border-y border-r border-white/5 ${activeAgent === 'gamma' ? 'shadow-[0_0_30px_rgba(239,68,68,0.2)] scale-100' : 'scale-[0.98] opacity-80'} rounded-3xl p-5 relative overflow-hidden group shadow-[0_10px_40px_rgba(0,0,0,0.5)] transform hover:-translate-x-2 transition-all duration-300 mt-2`}
+                            className={`w-10/12 bg-black/40 backdrop-blur-3xl cursor-pointer border-l-[3px] border-oscillate-lazulite/80 border-y border-r border-white/5 ${activeAgent === 'gamma' ? 'shadow-[0_0_30px_rgba(37,99,235,0.2)] scale-100' : 'scale-[0.98] opacity-80'} rounded-3xl p-5 relative overflow-hidden group shadow-[0_10px_40px_rgba(0,0,0,0.5)] transform hover:-translate-x-2 transition-all duration-300 mt-2`}
                         >
-                            <div className="absolute inset-0 bg-[radial-gradient(circle_at_right,_rgba(239,68,68,0.1),_transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <div className="absolute inset-0 bg-[radial-gradient(circle_at_right,_rgba(37,99,235,0.1),_transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity"></div>
                             <div className="flex justify-between items-center mb-2">
                                 <div className="flex items-center gap-3 relative z-10">
-                                    <div className="w-8 h-8 rounded-full bg-oscillate-error/10 border border-oscillate-error/30 flex items-center justify-center">
-                                        <Lock className="w-4 h-4 text-oscillate-error" />
+                                    <div className="w-8 h-8 rounded-full bg-oscillate-lazulite/10 border border-oscillate-lazulite/30 flex items-center justify-center">
+                                        <Lock className="w-4 h-4 text-oscillate-lazulite" />
                                     </div>
                                     <div>
                                         <h3 className="font-sans text-sm font-semibold tracking-wide text-white">Security Node</h3>
-                                        <p className="text-[9px] font-mono tracking-widest text-oscillate-error">Gemma-2:27b</p>
+                                        <p className="text-[9px] font-mono tracking-widest text-oscillate-lazulite">Gemma-2:27b</p>
                                     </div>
                                 </div>
                             </div>
 
                             <div className={`transition-all duration-500 overflow-hidden ${activeAgent === 'gamma' ? 'max-h-24 opacity-100 mt-4 mb-2' : 'max-h-0 opacity-0 m-0'}`}>
-                                <div className="text-[10px] font-mono text-oscillate-error/80 uppercase">PID: 4992 Network Spike</div>
+                                <div className="text-[10px] font-mono text-oscillate-lazulite/80 uppercase">PID: 4992 Network Spike</div>
                             </div>
 
                             <p className="text-[10px] font-mono text-white/60 relative z-10 truncate mt-2">Anomaly: \Network Perfomance</p>
