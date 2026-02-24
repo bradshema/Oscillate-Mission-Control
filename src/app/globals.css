@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+@theme {
+  --color-oscillate-bg: #000000;
+  --color-oscillate-surface: #050505;
+  --color-oscillate-surface-hover: #0a0a0a;
+  --color-oscillate-emerald: #10b981;
+  --color-oscillate-emerald-glow: rgba(16, 185, 129, 0.15);
+  --color-oscillate-emerald-intense: #34d399;
+  --color-oscillate-gold: #d4af37;
+  --color-oscillate-gold-glow: rgba(212, 175, 55, 0.15);
+  --color-oscillate-gold-intense: #f3e5ab;
+  --color-oscillate-border: #111111;
+  --color-oscillate-error: #ef4444;
+  --color-oscillate-error-glow: rgba(239, 68, 68, 0.15);
+  --color-oscillate-warning: #f59e0b;
+  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-geist-sans);
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--color-oscillate-bg);
+    color: #ededed;
+    @apply font-sans antialiased selection:bg-oscillate-emerald selection:text-black;
+  }
+}
+
+@layer utilities {
+  .mc-panel {
+    @apply bg-oscillate-surface border border-oscillate-border p-4 transition-all duration-300;
+  }
+
+  .mc-panel-active {
+    @apply border-oscillate-emerald shadow-[0_0_20px_var(--color-oscillate-emerald-glow)];
+  }
+
+  .mc-text-glow {
+    text-shadow: 0 0 12px var(--color-oscillate-emerald-glow);
+  }
+
+  .mc-badge {
+    @apply font-mono text-[10px] uppercase tracking-widest px-2 py-0.5 border border-oscillate-border bg-oscillate-bg;
+  }
+}
