@@ -119,7 +119,7 @@ export function ForegroundHUD() {
                     <div className="flex items-center gap-4 bg-black/40 backdrop-blur-2xl border border-white/5 rounded-full px-6 py-3 shadow-[0_0_40px_rgba(0,0,0,0.5)] transition-all hover:bg-black/60 hover:border-oscillate-emerald/30 group">
                         <Globe className="w-5 h-5 text-oscillate-emerald group-hover:animate-pulse" strokeWidth={1.5} />
                         <h1 className="text-sm font-sans tracking-[0.2em] font-medium text-white uppercase flex items-center gap-2">
-                            OpenClaw<span className="text-oscillate-emerald font-bold mc-text-glow">Gateway</span>
+                            Mission<span className="text-oscillate-emerald font-bold mc-text-glow">Control</span>
                         </h1>
                     </div>
 
