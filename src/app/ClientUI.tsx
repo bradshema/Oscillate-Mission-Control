@@ -34,7 +34,8 @@ export function ForegroundHUD() {
     const [time, setTime] = useState<string>("SYNCING...");
     const [hardware, setHardware] = useState<any>(null);
     const [wsStatus, setWsStatus] = useState<string>("CONNECTING");
-
+    const [logs, setLogs] = useState<string[]>([]);
+    
     // UI Interaction States
     const [activeAgent, setActiveAgent] = useState<string | null>("alpha");
     const [hasStarted, setHasStarted] = useState<boolean>(false);
@@ -49,13 +50,25 @@ export function ForegroundHUD() {
         const connectWs = () => {
             const ws = new WebSocket('ws://localhost:3001');
 
-            ws.onopen = () => setWsStatus("ONLINE");
+            ws.onopen = () => {
+                setWsStatus("ONLINE");
+                setLogs(prev => [...prev, "> CONNECTION ESTABLISHED: ws://localhost:3001"]);
+            };
 
             ws.onmessage = (event) => {
                 try {
                     const payload = JSON.parse(event.data);
                     if (payload.type === 'HARDWARE_TELEMETRY') {
                         setHardware(payload.data);
+                    } else if (payload.type === 'AGENT_UPDATE') {
+                        // Handle agent updates (status, logs)
+                        setLogs(prev => {
+                            const newLogs = [...prev, `> ${payload.data.message || JSON.stringify(payload.data)}`];
+                            return newLogs.slice(-10); // Keep last 10 logs
+                        });
+                        if (payload.data.action === 'status') {
+                            // Could update specific agent status here
+                        }
                     }
                 } catch (e) {
                     console.error("Failed to parse telemetry", e);
@@ -195,12 +208,9 @@ export function ForegroundHUD() {
                                 <span className="opacity-50">{"// OUTPUT STREAM"}</span>
                             </div>
                             <div className="flex-grow overflow-y-auto font-mono text-[10px] leading-relaxed text-[#d4d4d8] flex flex-col gap-2 scrollbar-none">
-                                <div className="opacity-70">&gt; System Boot Sequence...</div>
-                                <div className="opacity-70">&gt; WebSocket layer attached on port 3000.</div>
-                                <div><span className="text-oscillate-emerald">@claw-alpha:</span> Pipeline BRADIAN received. Resolving LLM dependencies.</div>
-                                <div className="text-oscillate-warning"><span className="text-white/40">&gt; Sys:</span> Memory allocation spike +12%.</div>
-                                <div><span className="text-oscillate-emerald">@claw-beta:</span> Awaiting downstream schemas...</div>
-                                <div className="text-oscillate-lazulite"><span className="text-white/40">&gt; Sys:</span> Task Scheduler anomaly flagged by Security Node.</div>
+                                {logs.map((log, i) => (
+                                    <div key={i} className="opacity-70">{log}</div>
+                                ))}
                                 <div className="flex items-center gap-1 text-oscillate-emerald mt-auto animate-pulse">
                                     <Terminal className="w-3 h-3" /> <div className="w-2 h-3 bg-oscillate-emerald opacity-70"></div>
                                 </div>
