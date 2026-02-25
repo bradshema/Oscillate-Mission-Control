@@ -24,10 +24,8 @@ export default function App() {
     }, 1000);
 
     // WebSocket Connection to LOCAL PC
-    // NOTE: On an iOS physical device or simulator, 'localhost' points to the phone itself.
-    // To connect to the Next.js server, we need the PC's actual local IPv4 address.
-    // For scaffolding, we will set a placeholder that the user can replace.
-    const wsUrl = 'ws://192.168.1.X:3001'; // <-- USER MUST REPLACE X WITH THEIR IP
+    // Connects to the specific IPv4 address provided by the user to stream Dashboard stats natively.
+    const wsUrl = 'ws://192.168.1.64:3001';
 
     let ws: WebSocket;
     try {
