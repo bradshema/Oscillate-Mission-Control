@@ -35,7 +35,7 @@ export function ForegroundHUD() {
     const [hardware, setHardware] = useState<any>(null);
     const [wsStatus, setWsStatus] = useState<string>("CONNECTING");
     const [logs, setLogs] = useState<string[]>([]);
-    
+
     // UI Interaction States
     const [activeAgent, setActiveAgent] = useState<string | null>("alpha");
     const [hasStarted, setHasStarted] = useState<boolean>(false);
@@ -108,7 +108,7 @@ export function ForegroundHUD() {
                 <div className="absolute inset-0 z-30 pointer-events-none p-6 md:p-10 flex flex-col justify-end items-center pb-24">
                     <button
                         onClick={() => setHasStarted(true)}
-                        className="pointer-events-auto group relative px-16 py-5 bg-black/40 backdrop-blur-3xl border border-white/10 rounded-full text-white tracking-[0.3em] font-sans text-sm uppercase font-medium hover:bg-black/60 hover:border-oscillate-emerald/50 transition-all duration-500 shadow-[0_0_40px_rgba(0,0,0,0.8)] overflow-hidden"
+                        className="pointer-events-auto group relative liquid-glass-button text-white text-sm hover:bg-black/60 hover:border-oscillate-emerald/50 transition-all duration-500 shadow-[0_0_40px_rgba(0,0,0,0.8)] overflow-hidden"
                     >
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-oscillate-emerald/10 to-transparent -translate-x-[150%] group-hover:animate-[shimmer_2s_infinite]"></div>
                         Start
@@ -129,7 +129,7 @@ export function ForegroundHUD() {
                 {/* TOP NAV: Minimal Pill Bar */}
                 <header className="flex justify-between items-start pointer-events-auto">
                     {/* Main Logo Pill */}
-                    <div className="flex items-center gap-4 bg-black/40 backdrop-blur-2xl border border-white/5 rounded-full px-6 py-3 shadow-[0_0_40px_rgba(0,0,0,0.5)] transition-all hover:bg-black/60 hover:border-oscillate-emerald/30 group">
+                    <div className="flex items-center gap-4 liquid-glass !rounded-full px-6 py-3 shadow-[0_0_40px_rgba(0,0,0,0.5)] transition-all hover:bg-black/60 hover:border-oscillate-emerald/30 group">
                         <Globe className="w-5 h-5 text-oscillate-emerald group-hover:animate-pulse" strokeWidth={1.5} />
                         <h1 className="text-sm font-sans tracking-[0.2em] font-medium text-white uppercase flex items-center gap-2">
                             Mission<span className="text-oscillate-emerald font-bold mc-text-glow">Control</span>
@@ -137,7 +137,7 @@ export function ForegroundHUD() {
                     </div>
 
                     {/* Time & System Status Pill */}
-                    <div className="flex items-center gap-6 bg-black/40 backdrop-blur-2xl border border-white/5 rounded-full px-6 py-3 shadow-[0_0_40px_rgba(0,0,0,0.5)]">
+                    <div className="flex items-center gap-6 liquid-glass !rounded-full px-6 py-3 shadow-[0_0_40px_rgba(0,0,0,0.5)]">
                         <div className="flex items-center gap-2">
                             <span className="relative flex h-2 w-2">
                                 <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${wsStatus === 'ONLINE' ? 'bg-oscillate-emerald' : 'bg-oscillate-warning'}`}></span>
@@ -157,7 +157,7 @@ export function ForegroundHUD() {
                     <div className="w-[320px] flex flex-col gap-6 pointer-events-auto h-full justify-center">
 
                         {/* HARDWARE TELEMETRY */}
-                        <div className="bg-gradient-to-br from-black/80 to-black/40 backdrop-blur-3xl border border-white/[0.05] rounded-3xl p-6 shadow-2xl relative overflow-hidden group hover:border-oscillate-gold/20 transition-colors">
+                        <div className="liquid-glass !rounded-3xl p-6 shadow-2xl relative group hover:border-oscillate-gold/20 transition-colors">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-oscillate-gold/[0.02] rounded-full blur-2xl -translate-y-1/2 translate-x-1/2 group-hover:bg-oscillate-gold/10 transition-colors"></div>
 
                             <div className="flex items-center gap-3 mb-6">
@@ -233,7 +233,7 @@ export function ForegroundHUD() {
                         {/* ACTIVE AGENT CARD (Qwen) */}
                         <div
                             onClick={() => setActiveAgent(activeAgent === "alpha" ? null : "alpha")}
-                            className={`w-full bg-black/40 backdrop-blur-3xl border ${activeAgent === 'alpha' ? 'border-oscillate-emerald shadow-[0_0_30px_rgba(16,185,129,0.3)] scale-100' : 'border-oscillate-emerald/30 scale-[0.98] opacity-80'} cursor-pointer rounded-3xl p-5 relative overflow-hidden group shadow-[0_10px_40px_rgba(0,0,0,0.5)] transform hover:-translate-x-2 transition-all duration-300`}
+                            className={`w-full liquid-glass !rounded-3xl border ${activeAgent === 'alpha' ? 'border-oscillate-emerald shadow-[0_0_30px_rgba(16,185,129,0.3)] scale-100' : 'border-oscillate-emerald/30 scale-[0.98] opacity-80'} cursor-pointer p-5 relative group shadow-[0_10px_40px_rgba(0,0,0,0.5)] transform hover:-translate-x-2 transition-all duration-300`}
                         >
                             {/* Subtle glass gleam */}
                             <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-oscillate-emerald to-transparent opacity-30"></div>
@@ -268,7 +268,7 @@ export function ForegroundHUD() {
                         {/* THINKING AGENT CARD (Llama) */}
                         <div
                             onClick={() => setActiveAgent(activeAgent === "beta" ? null : "beta")}
-                            className={`w-11/12 bg-black/60 backdrop-blur-3xl cursor-pointer border ${activeAgent === 'beta' ? 'border-oscillate-gold shadow-[0_0_30px_rgba(212,175,55,0.2)] scale-100' : 'border-oscillate-gold/20 scale-[0.98] opacity-80'} rounded-3xl p-5 relative overflow-hidden group shadow-[0_10px_40px_rgba(0,0,0,0.5)] transform hover:-translate-x-2 transition-all duration-300`}
+                            className={`w-11/12 liquid-glass !rounded-3xl cursor-pointer border ${activeAgent === 'beta' ? 'border-oscillate-gold shadow-[0_0_30px_rgba(212,175,55,0.2)] scale-100' : 'border-oscillate-gold/20 scale-[0.98] opacity-80'} p-5 relative group shadow-[0_10px_40px_rgba(0,0,0,0.5)] transform hover:-translate-x-2 transition-all duration-300`}
                         >
                             {/* Subtle Gold glass gleam */}
                             <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-oscillate-gold to-transparent opacity-20"></div>
@@ -303,7 +303,7 @@ export function ForegroundHUD() {
                         {/* SECURITY/ANOMALY (Gemma) */}
                         <div
                             onClick={() => setActiveAgent(activeAgent === "gamma" ? null : "gamma")}
-                            className={`w-10/12 bg-black/40 backdrop-blur-3xl cursor-pointer border-l-[3px] border-oscillate-lazulite/80 border-y border-r border-white/5 ${activeAgent === 'gamma' ? 'shadow-[0_0_30px_rgba(37,99,235,0.2)] scale-100' : 'scale-[0.98] opacity-80'} rounded-3xl p-5 relative overflow-hidden group shadow-[0_10px_40px_rgba(0,0,0,0.5)] transform hover:-translate-x-2 transition-all duration-300 mt-2`}
+                            className={`w-10/12 liquid-glass !rounded-3xl cursor-pointer border-l-[3px] border-l-oscillate-lazulite/80 border-r-0 border-y-0 ${activeAgent === 'gamma' ? 'shadow-[0_0_30px_rgba(37,99,235,0.2)] scale-100' : 'scale-[0.98] opacity-80'} p-5 relative group shadow-[0_10px_40px_rgba(0,0,0,0.5)] transform hover:-translate-x-2 transition-all duration-300 mt-2`}
                         >
                             <div className="absolute inset-0 bg-[radial-gradient(circle_at_right,_rgba(37,99,235,0.1),_transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity"></div>
                             <div className="flex justify-between items-center mb-2">
@@ -332,7 +332,7 @@ export function ForegroundHUD() {
                 {/* BOTTOM HUD BARS */}
                 <footer className="w-full flex justify-between items-end pointer-events-auto">
                     {/* QUEUE */}
-                    <div className="bg-black/40 backdrop-blur-2xl border border-white/10 rounded-2xl p-4 flex gap-6 items-center shadow-2xl">
+                    <div className="liquid-glass !rounded-2xl p-4 flex gap-6 items-center shadow-2xl">
                         <div className="bg-oscillate-emerald text-black text-[10px] font-bold font-mono tracking-widest px-3 py-1 rounded-full uppercase">Queue</div>
                         <div className="flex items-center gap-4 border-l border-white/10 pl-4">
                             <div className="flex flex-col">

@@ -46,4 +46,51 @@
   .mc-badge {
     @apply font-mono text-[10px] uppercase tracking-widest px-2 py-0.5 border border-oscillate-border bg-oscillate-bg;
   }
+
+  /* Liquid Glass Utilities */
+  .liquid-glass {
+    background-color: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .liquid-glass::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    z-index: 10;
+  }
+
+  /* Text Gradients */
+  .text-gradient-emerald {
+    background-image: linear-gradient(to right, #34d399, #10b981, #047857);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .text-gradient-gold {
+    background-image: linear-gradient(to right, #fbbf24, #f59e0b, #b45309);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .text-gradient-lapis {
+    background-image: linear-gradient(to right, #60a5fa, #3b82f6, #1d4ed8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
 }
